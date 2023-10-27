@@ -8,6 +8,7 @@ from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chat_models import ChatOpenAI
 import os
+from langchain.llms import HuggingFaceHub
 
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = ''
 os.environ["OPENAI_API_KEY"] = ""
@@ -55,14 +56,19 @@ embeddings = HuggingFaceEmbeddings()
 
 knowledge_base = FAISS.from_texts(chunks,embeddings)
 
-user_question = input("Ask Me:")
-if user_question:
-    docs = knowledge_base.similarity_search(user_question)
 
-    #llm = HuggingFaceHub(repo_id= "google/flan-t5-large", model_kwargs={"temperature":0.5, "max_length":64})
-    
-    llm = ChatOpenAI( openai_api_key= os.getenv("OPENAI_API_KEY"), temperature=0, model_name="gpt-3.5-turbo")
+while True:
+    user_question = input("Ask Me: ")
+    if user_question:
+        docs = knowledge_base.similarity_search(user_question)
 
-    chain = load_qa_chain(llm,chain_type="stuff")
-    response = chain.run(input_documents=docs,question=user_question)
-    print('Response:',response)
+        # repo_id = "google/flan-t5-xxl"
+        repo_id = "google/flan-t5-large"
+        llm = HuggingFaceHub(repo_id= repo_id, model_kwargs={"temperature":0.5, "max_length":64})
+
+        
+        # llm = ChatOpenAI( openai_api_key= os.getenv("OPENAI_API_KEY"), temperature=0, model_name="gpt-3.5-turbo")
+
+        chain = load_qa_chain(llm,chain_type="stuff")
+        response = chain.run(input_documents=docs,question=user_question)
+        print('Response:', response)
