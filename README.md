@@ -1,5 +1,5 @@
 # AskYourScraperBot
-A chatbot that receives list of urls as input and is able to answer user questions according to the links. V1 uses FAISS vector DB on locally device while V2 does not use vector DB locally (cloud based). The below tests are conduccted on V1. 
+A chatbot that receives list of urls as input and is able to answer user questions according to the links. V1 uses FAISS vector DB on local device (eg server that runs the app) while V2 does not use vector DB locally (cloud based). The below tests are conduccted on V1. 
 
 ## Example 1 (relevant question)
 
