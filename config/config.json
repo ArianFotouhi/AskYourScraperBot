@@ -1,0 +1,6 @@
+{
+    "OPENAI_API_KEY":"",
+    "OPENAI_API_BASE":"https://vqa.openai.azure.com/",
+    "DEPLOYMENT_NAME":"myGPT3Turbo",
+    "API_VERSION":"2023-07-01-preview"
+}
